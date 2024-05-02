@@ -1,0 +1,14 @@
+{
+  "name": "opus-classical-kotlin",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "tailwindcss -i ./src/main/resources/tailwind.css -o ./src/main/resources/static/styles.css --watch",
+    "build": "tailwindcss -i ./src/main/resources/tailwind.css -o ./src/main/resources/static/styles.css"
+  },
+  "author": "Denis Rodionov",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
+  }
+}
