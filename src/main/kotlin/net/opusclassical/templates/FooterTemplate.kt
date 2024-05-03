@@ -1,7 +1,6 @@
-package net.opusclassical.views.partials
+package net.opusclassical.templates
 
 import io.ktor.server.html.*
-import kotlinx.css.a
 import kotlinx.html.FlowContent
 import kotlinx.html.footer
 import kotlinx.html.a

@@ -4,31 +4,18 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.html.*
 import io.ktor.server.http.content.*
-import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.server.webjars.*
 import kotlinx.css.*
 import kotlinx.html.div
 import kotlinx.html.h1
 import net.opusclassical.dao.dao
 import net.opusclassical.plugins.respondCss
-import net.opusclassical.views.LayoutTemplate
+import net.opusclassical.templates.LayoutTemplate
 
 fun Application.configureRouter() {
     routing {
-        get("/") {
-            call.respondHtmlTemplate(LayoutTemplate()) {
-                content {
-                    h1(classes = "page-title") {
-                        +"Hello from Ktor!"
-                    }
-                    div(classes = "m-12") {
-                        +"This should have a huge margin!"
-                    }
-                }
-            }
-        }
+        indexRoute()
         get("/countries") {
             try {
                 val countries = dao.allCountries()
