@@ -6,6 +6,7 @@ import io.ktor.server.netty.*
 import net.opusclassical.dao.DatabaseSingleton
 import net.opusclassical.plugins.*
 import io.github.cdimascio.dotenv.dotenv
+import net.opusclassical.routes.configureRouter
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
@@ -14,9 +15,9 @@ fun main(args: Array<String>): Unit = EngineMain.main(args)
 
 fun Application.module() {
     DatabaseSingleton.init(dotenv()["DB_URL"])
+    configureRouter()
+
     configureSerialization()
-    configureDatabases()
-    configureTemplating()
     configureMonitoring()
     configureHTTP()
     configureRouting()
