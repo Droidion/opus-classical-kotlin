@@ -5,6 +5,7 @@ import kotlinx.html.*
 
 class LayoutTemplate: Template<HTML> {
     private val footer = TemplatePlaceholder<FooterTemplate>()
+    private val header = TemplatePlaceholder<HeaderTemplate>()
     val content = Placeholder<FlowContent>()
     val titleText = Placeholder<TITLE>()
     override fun HTML.apply() {
@@ -20,26 +21,27 @@ class LayoutTemplate: Template<HTML> {
                 attributes["media"] = "(prefers-color-scheme: dark)"
             }
             meta("color-scheme", "dark light")
-            link(rel = "icon", type = "image/png", href = "/static/images/apple-touch-icon.png") {
-                attributes["sizes"] = "180x180"
+            link("/static/images/apple-touch-icon.png", "icon", "image/png") {
+                sizes = "180x180"
             }
-            link(rel = "icon", type = "image/png", href = "/static/images/favicon-32x32.png") {
-                attributes["sizes"] = "32x32"
+            link("/static/images/favicon-32x32.png", "icon", "image/png") {
+                sizes = "32x32"
             }
-            link(rel = "icon", type = "image/png", href = "/static/images/favicon-16x16.png") {
-                attributes["sizes"] = "16x16"
+            link("/static/images/favicon-16x16.png", "icon", "image/png") {
+                sizes = "16x16"
             }
-            link(rel = "mask-icon", href = "/static/images/safari-pinned-tab.svg") {
+            link("/static/images/safari-pinned-tab.svg", "mask-icon") {
                 attributes["color"] = "#fff"
             }
-            link(rel = "manifest", href = "/static/site.webmanifest")
-            link(rel = "apple-touch-icon-precomposed", type = "image/png", href = "/static/images/apple-touch-icon.png") {
-                attributes["sizes"] = "180x180"
+            link("/static/site.webmanifest", "manifest")
+            link("/static/images/apple-touch-icon.png", "apple-touch-icon-precomposed",  "image/png") {
+                sizes = "180x180"
             }
-            link(rel = "icon", type = "image/x-icon", href = "/static/images/favicon.ico") {}
-            link(rel = "stylesheet", href = "/styles.css", type = "text/css")
-            link(rel = "stylesheet", href = "/static/styles.css", type = "text/css")
-            script(src = "/static/init-switcher.js") {}
+            link("/static/images/favicon.ico", "icon", "image/x-icon")
+            link("/static/styles.css", "stylesheet", "text/css")
+            script(src = "/static/init-switcher.js") {
+                attributes["defer"] = "defer"
+            }
             title {
                 insert(titleText)
             }
@@ -47,8 +49,11 @@ class LayoutTemplate: Template<HTML> {
         }
         body {
             script(src = "/static/theme-loader.js") {}
-            div(classes = "grid min-h-screen w-full grid-rows-[auto_1fr_auto] justify-items-center") {
-                main(classes = "main flex w-full max-w-screen-xl flex-col overflow-auto px-4 pb-4") {
+            div {
+                classes = setOf("grid", "min-h-screen", "w-full", "grid-rows-[auto_1fr_auto]", "justify-items-center")
+                insert(HeaderTemplate(), header)
+                main {
+                    classes = setOf("main", "flex", "w-full", "max-w-screen-xl", "flex-col", "overflow-auto", "px-4", "pb-4")
                     insert(content)
                 }
                 insert(FooterTemplate(), footer)

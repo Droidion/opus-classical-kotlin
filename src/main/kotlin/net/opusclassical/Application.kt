@@ -10,9 +10,6 @@ import net.opusclassical.routes.configureRouter
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
-//embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)
-//        .start(wait = true)
-
 fun Application.module() {
     DatabaseSingleton.init(dotenv()["DB_URL"])
     configureRouter()
